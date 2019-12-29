@@ -1,5 +1,5 @@
 {
-  "name": "webtrc-nsc",
+  "name": "webrtc-nsc",
   "version": "0.0.1",
   "description": "无需server创建webrtc私密连接",
   "main": "index.js",
