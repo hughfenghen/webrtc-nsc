@@ -1,0 +1,2 @@
+#chat{width:80%;max-width:800px;margin:auto}#chat .history-msgs,#chat .unsend-msg{width:100%;border:1px solid #ccc;padding:8px}#chat .history-msgs{height:500px;margin-bottom:10px;overflow:auto}#chat .history-msgs .msg-wrapper{margin-bottom:10px}#chat .history-msgs .msg-wrapper.me{text-align:right}#chat .history-msgs .msg{display:inline-block;background:#eee;padding:4px 8px;border-radius:8px}#chat .history-msgs .msg.me{background:#a3eb5b}#chat .unsend-msg{height:100px;resize:none}
+/*# sourceMappingURL=/webrtc-nsc/invitee.865fa5e9.css.map */
