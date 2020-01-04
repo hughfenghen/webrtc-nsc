@@ -30,6 +30,7 @@ function sendEvent(channel) {
     .addEventListener('keydown', (evt) => {
       const { key, target } = evt
       if (key !== 'Enter') return
+      if (evt.shiftKey || evt.ctrlKey) return
       evt.preventDefault()
       const msg = target.value.trim()
       if (!msg) return

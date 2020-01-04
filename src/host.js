@@ -22,21 +22,23 @@ import chat from './chat/index.js'
   const channel = rtcPC.createDataChannel('sendDataChannel');
   channel.onopen = () => {
     console.log('------ channel open');
+    document.querySelector('.page1').style.display = 'none'
     chat(channel)
   };
 
   // ------------------------------------
   const baseLink = `${location.origin}/webrtc-nsc/invitee.html`
+  let fullLink = ''
   let linkParams = {
     offer: null,
     candidates: [],
   }
   
   function updateLink() {
-    const link = baseLink + '?info=' + encodeURIComponent(JSON.stringify(linkParams))
+    fullLink = baseLink + '?info=' + encodeURIComponent(JSON.stringify(linkParams))
     const el = document.getElementById('invite-link')
-    el.innerHTML = link
-    el.setAttribute('href', link)
+    el.innerHTML = fullLink
+    el.setAttribute('href', fullLink)
   }
 
   rtcPC.onicecandidate = ({ candidate }) => {
@@ -59,5 +61,16 @@ import chat from './chat/index.js'
       candidates.forEach(candidate => {
         rtcPC.addIceCandidate(new RTCIceCandidate(candidate))
       })
+    })
+  document.querySelector('.copy-icon')
+    .addEventListener('click', ({ target }) => {
+      navigator.clipboard
+        .writeText(fullLink)
+        .then(() => {
+          target.classList.add('copied')
+          setTimeout(function() {
+            target.classList.remove('copied')
+          }, 2000);
+        })
     })
 })();

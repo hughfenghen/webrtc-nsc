@@ -6,7 +6,7 @@
 
 #chat .history-msgs, #chat .unsend-msg {
   width: 100%;
-  border: 1px solid #ccc;
+  background-color: #fafafa;
   padding: 8px;
 }
 
@@ -37,4 +37,6 @@
 #chat .unsend-msg {
   height: 100px;
   resize: none;
+  outline: none;
+  border: none;
 }

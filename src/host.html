@@ -5,16 +5,113 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>WebRTC - NSC</title>
+  <style>
+    body {
+      background-color: #efefef;
+    }
+
+    .page1 {
+      width: 450px;
+      text-align: center;
+      margin: 50px auto;
+    }
+
+    .desc {
+      text-align: left;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .link-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 450px;
+      margin: auto;
+    }
+
+    #invite-link {
+      white-space: nowrap;
+      width: 370px;
+      display: inline-block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding: 8px 16px;
+      background-color: #ddd;
+      border-radius: 16px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .copy-icon {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      background: #ddd;
+      border-radius: 50%;
+      display: inline-block;
+      height: 38px;
+      width: 38px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .copy-icon::before {
+      content: "链接已复制";
+      font-size: 12px;
+      position: absolute;
+      font-weight: normal;
+      top: 10px;
+      white-space: nowrap;
+      left: 45px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .copied::before {
+      opacity: 1;
+    }
+
+    #answer {
+      resize: none;
+      width: 100%;
+      height: 80px;
+      padding: 8px;
+      display: block;
+      margin: 20px auto;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      background-color: #ddd;
+      outline: none;
+    }
+
+    #connect {
+      background: #ddd;
+      color: #333;
+      border: none;
+      padding: 8px 32px;
+      border-radius: 24px;
+      display: inline-block;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
-  <a id="invite-link" target="_blank"></a>
-  <hr>
-  <label for="answer">应答密令：</label>
-  <textarea id="answer" type="text"></textarea>
-  <button id="connect">连接</button>
-  <hr>
+  <div class="page1">
+    <div class="desc">
+      两步建立一个P2P通信连接：<br />
+      1. 点击链接打开页面，或点击“+”复制链接发送给好友；<br />
+      2. 将对方回传的“应答密令”粘贴到输入框中，点击“连接”。
+    </div>
+    <div class="link-wrap">
+      <a id="invite-link" target="_blank"></a>
+      <span class="copy-icon">+</span>
+    </div>
+    <textarea id="answer" type="text" placeholder="请输入应答密令"></textarea>
+    <span id="connect">连接</span>
+  </div>
   <script src="./host.js"></script>
 </body>
 
