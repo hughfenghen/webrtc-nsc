@@ -27,7 +27,7 @@
   };
 
   // ------------------------------------
-  const baseLink = `${location.origin}/invitee.html`
+  const baseLink = `${location.origin}/webrtc-nsc/invitee.html`
   let linkParams = {
     offer: null,
     candidates: [],
