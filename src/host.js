@@ -54,7 +54,10 @@ import chat from './chat/index.js'
 
   document.getElementById('connect')
     .addEventListener('click', () => {
-      const answer = JSON.parse(document.getElementById('answer').value.trim());
+      const { answer, candidates } = JSON.parse(document.getElementById('answer').value.trim());
       rtcPC.setRemoteDescription(new RTCSessionDescription(answer));
+      candidates.forEach(candidate => {
+        rtcPC.addIceCandidate(new RTCIceCandidate(candidate))
+      })
     })
 })();

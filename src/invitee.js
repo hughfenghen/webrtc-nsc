@@ -18,6 +18,7 @@ import chat from './chat/index.js'
       }
     ]
   });
+
   const url = new URL(location.href)
   const info = JSON.parse(url.searchParams.get('info'))
   console.log('-------- info:', info);
@@ -25,11 +26,27 @@ import chat from './chat/index.js'
   rtcPC.setRemoteDescription(new RTCSessionDescription(info.offer));
   const answer = await rtcPC.createAnswer();
   rtcPC.setLocalDescription(answer);
-  document.getElementById('answer').innerHTML = JSON.stringify(answer);
 
   info.candidates.forEach(candidate => {
     rtcPC.addIceCandidate(new RTCIceCandidate(candidate))
   })
+
+  const candidates = []
+
+  function updateAnswer() {
+    document.getElementById('answer').innerHTML = JSON.stringify({
+      answer,
+      candidates,
+    });
+  }
+
+  rtcPC.onicecandidate = ({ candidate }) => {
+    console.log('------ send candiate: ', candidate);
+    if (candidate !== null) {
+      candidates.push(candidate);
+      updateAnswer()
+    }
+  };
 
   rtcPC.ondatachannel = (chanEvt) => {
     console.log('------- ondatachannel');
