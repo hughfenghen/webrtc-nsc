@@ -1,3 +1,5 @@
+import chat from './chat/index.js'
+
 ;(async () => {
   const rtcPC = new RTCPeerConnection({
     'iceServers': [
@@ -18,12 +20,12 @@
   });
   const url = new URL(location.href)
   const info = JSON.parse(url.searchParams.get('info'))
+  console.log('-------- info:', info);
 
   rtcPC.setRemoteDescription(new RTCSessionDescription(info.offer));
   const answer = await rtcPC.createAnswer();
   rtcPC.setLocalDescription(answer);
   document.getElementById('answer').innerHTML = JSON.stringify(answer);
-  console.log(11111, rtcPC.ondatachannel, info, answer);
 
   info.candidates.forEach(candidate => {
     rtcPC.addIceCandidate(new RTCIceCandidate(candidate))
@@ -34,13 +36,10 @@
     const { channel } = chanEvt;
     channel.onopen = () => {
       console.log('------- channel open');
+      chat(channel)
     };
     channel.onmessage = ({ data }) => {
       console.log('===== onmessage: ', data);
-    };
-    channel.onclose = () => {
-      console.log('------ chan closed');
-      stopRecord();
     };
   }
 })();

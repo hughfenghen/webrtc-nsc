@@ -1,3 +1,5 @@
+import chat from './chat/index.js'
+
 ;(async () => {
   const rtcPC = new RTCPeerConnection({
     'iceServers': [
@@ -20,10 +22,7 @@
   const channel = rtcPC.createDataChannel('sendDataChannel');
   channel.onopen = () => {
     console.log('------ channel open');
-    channel.send('dididi');
-  };
-  channel.onmessage = evt => {
-    console.log('------ channel onmessage', evt);
+    chat(channel)
   };
 
   // ------------------------------------
@@ -41,11 +40,10 @@
   }
 
   rtcPC.onicecandidate = ({ candidate }) => {
-    console.log('------ send candiate to ', candidate);
+    console.log('------ send candiate: ', candidate);
     if (candidate !== null) {
       linkParams.candidates.push(candidate)
       updateLink()
-      // sendCandidate(candidate);
     }
   };
 
@@ -53,12 +51,10 @@
   rtcPC.setLocalDescription(offer);
   linkParams.offer = offer
   updateLink()
-  console.log(1111, offer);
-
 
   document.getElementById('connect')
     .addEventListener('click', () => {
-      const answer = JSON.parse(document.getElementById('answer').value);
+      const answer = JSON.parse(document.getElementById('answer').value.trim());
       rtcPC.setRemoteDescription(new RTCSessionDescription(answer));
     })
 })();
