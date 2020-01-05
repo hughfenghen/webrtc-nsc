@@ -8,6 +8,7 @@
   width: 100%;
   background-color: #fafafa;
   padding: 8px;
+  box-sizing: border-box;
 }
 
 #chat .history-msgs {

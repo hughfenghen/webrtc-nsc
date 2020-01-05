@@ -10,14 +10,60 @@
     body {
       background-color: #efefef;
     }
+
+    *::-webkit-scrollbar {
+      width: 0 !important;
+    }
+
+    .page2 {
+      width: 450px;
+      margin: 50px auto;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .copy-icon {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      background: #ddd;
+      border-radius: 50%;
+      display: inline-block;
+      height: 38px;
+      width: 38px;
+      cursor: pointer;
+      position: relative;
+      margin-left: 20px;
+    }
+
+    .copy-icon::before {
+      content: "已复制";
+      font-size: 12px;
+      position: absolute;
+      font-weight: normal;
+      top: 10px;
+      white-space: nowrap;
+      left: 45px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .copied::before {
+      opacity: 1;
+    }
   </style>
 </head>
 
 <body>
-  <strong>answer: </strong>
-  <p id="answer"></p>
-  <br>
+  <div class="page2">
+    <div>点击“+”复制应答密令，发送给邀请好友<br>等待对方连接</div>
+    <div class="copy-icon">+</div>
+  </div>
   <script src="./invitee.js"></script>
 </body>
+
 
 </html>

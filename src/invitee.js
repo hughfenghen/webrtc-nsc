@@ -32,9 +32,10 @@ import chat from './chat/index.js'
   })
 
   const candidates = []
+  let connectInfo = {}
 
   function updateAnswer() {
-    document.getElementById('answer').innerHTML = JSON.stringify({
+    connectInfo = JSON.stringify({
       answer,
       candidates,
     });
@@ -53,10 +54,23 @@ import chat from './chat/index.js'
     const { channel } = chanEvt;
     channel.onopen = () => {
       console.log('------- channel open');
+      document.querySelector('.page2').style.display = 'none'
       chat(channel)
     };
     channel.onmessage = ({ data }) => {
       console.log('===== onmessage: ', data);
     };
   }
+
+  document.querySelector('.copy-icon')
+    .addEventListener('click', ({ target }) => {
+      navigator.clipboard
+        .writeText(connectInfo)
+        .then(() => {
+          target.classList.add('copied')
+          setTimeout(function () {
+            target.classList.remove('copied')
+          }, 2000);
+        })
+    })
 })();

@@ -4,8 +4,7 @@ function initChatDom() {
   const chatEL = document.createElement('div')
   chatEL.setAttribute('id', 'chat')
   chatEL.innerHTML = `
-    <div class="history-msgs">
-    </div>
+    <div class="history-msgs"></div>
     <textarea class="unsend-msg" placeholder="按回车发送消息"></textarea>
   `
 
