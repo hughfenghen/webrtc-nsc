@@ -11,12 +11,12 @@ function initChatDom() {
   document.body.appendChild(chatEL)
 }
 
-function addMsg({ msg, isMe }) {
+function addMsg({ msg, type }) {
   const msgElWrap = document.createElement('div')
-  msgElWrap.className = `msg-wrapper ${isMe ? 'me' : ''}`
-  
+  msgElWrap.className = `msg-wrapper ${type}`
+
   const msgEl = document.createElement('div')
-  msgEl.className = `msg ${isMe ? 'me' : ''}`
+  msgEl.className = `msg ${type}`
   msgEl.innerHTML = msg
   msgElWrap.appendChild(msgEl)
 
@@ -33,8 +33,8 @@ function sendEvent(channel) {
       evt.preventDefault()
       const msg = target.value.trim()
       if (!msg) return
-      
-      addMsg({ msg, isMe: true })
+
+      addMsg({ msg, type: 'me' })
       target.value = ''
       channel.send(msg)
       // todo: 消息发送失败
@@ -48,13 +48,24 @@ export default function chat(channel) {
   initChatDom()
   sendEvent(channel)
 
+  addMsg({ 
+    msg: '私密连接已建立，你可以发送消息，也可以<a href="https://github.com/hughfenghen/webtrc-nsc" target="_blank">了解详情</a>', 
+    type: 'system' 
+  })
   channel.onmessage = ({ data }) => {
     console.log('------ channel onmessage:', data);
-    addMsg({ msg: data, isMe: false })
+    addMsg({ msg: data, type: 'friend' })
   };
 
   channel.onclose = () => {
     console.log('------ chan closed');
-    // todo: add system tips
+    addMsg({
+      msg: '连接已断开',
+      type: 'system'
+    })
   };
+
+  window.addEventListener('beforeunload', () => {
+    channel.close()
+  })
 }

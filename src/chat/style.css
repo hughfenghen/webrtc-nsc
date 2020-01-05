@@ -27,12 +27,26 @@
 #chat .history-msgs .msg {
   display: inline-block;
   background: #eee;
-  padding: 4px 8px;
+  padding: 4px 12px;
   border-radius: 8px;
 }
 
 #chat .history-msgs .msg.me {
   background: rgb(163, 235, 91);
+}
+
+#chat .history-msgs .msg-wrapper.system {
+  text-align: center;
+  font-size: 12px;
+  border-radius: 24px;
+}
+
+#chat .history-msgs .msg-wrapper.system a {
+  text-decoration: none;
+}
+
+#chat .history-msgs .msg.system {
+  border-radius: 24px;
 }
 
 #chat .unsend-msg {
